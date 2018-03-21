@@ -1,0 +1,51 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using Pizza_Demo.Data
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<img src="images/pizza.jpg"/>
+
+<div>
+    <a asp-action="Create" asp-controller="Order" class="btn btn-default">Neue Bestellung</a>
+</div>
+
+
+
+@inject UserManager<ApplicationUser> Manager;
+@inject ApplicationDbContext Context;
+
+@{
+
+    var user = await Manager.GetUserAsync(User);
+    if (user != null && await Manager.IsInRoleAsync(user, "Administrator"))
+    {
+        <h1>Alle Bestellungen</h1>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Besteller</th>
+                    <th>Pizza</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var x in Context.Order.Include(x => x.Customer))
+                {
+                    <tr>
+                        <td><a asp-action="Detail" asp-controller="Order" asp-route-Id="@x.Id">@x.Id</a></td>
+                        <td>@x.Customer.UserName</td>
+                        <td>@x.Name</td>
+                        <td>@x.State</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+}
+
