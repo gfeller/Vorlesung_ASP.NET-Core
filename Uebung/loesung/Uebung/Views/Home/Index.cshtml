@@ -1,0 +1,17 @@
+﻿@model Bmi
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="Bmi" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#result">
+    <label asp-for="Height"></label>
+    <input asp-for="Height" />
+    <label asp-for="Weight"></label>
+    <input asp-for="Weight" />
+    <input type="submit" value="Rechnen!"/>
+</form>
+<div id="result"></div>
+
+@section Scripts{
+    <script src="lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+}
