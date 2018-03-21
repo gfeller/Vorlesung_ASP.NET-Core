@@ -1,0 +1,44 @@
+@using Demo.Models
+@model Demo.Models.Order
+
+@{
+    ViewData["Title"] = "OrderOK";
+}
+
+<h2>@TempData["Text"]</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if(Model.State == OrderState.New)
+    { 
+        <a asp-action="Delete" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>  
+    }
+    <a asp-action="Create"  asp-controller="Order" class="btn btn-default">Neue Bestellung</a>  
+    <a asp-action="Detail"  asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-default">Bestellung anzeigen</a>
+</div>
