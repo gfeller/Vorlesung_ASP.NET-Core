@@ -2,7 +2,7 @@
 <html lang="de">
 	<head>
 		<meta charset="utf-8" />
-		<title>WED3 - ASP.NET MVC</title>
+		<title>ASP.NET MVC</title>
 		<meta name="robots" content="noindex, nofollow" />
 		<link rel="icon" href="./HSR.Template.Exercises/icon-document.png" type="image/png" />
 
@@ -10,36 +10,34 @@
 		<script src="HSR.Template.Exercises/solutions.js"></script>
 	</head>
 	<body>
-		<h1>WED3 - Canvas
-			<button id="showSolutions">Lösungen anzeigen/ausblenden</button>
+		<h1>ASP.NET MVC
 		</h1>
 
 		<h2>Ziel</h2>
 		Anhand eines <a href="https://de.wikipedia.org/wiki/Body-Mass-Index">BMI-Rechners</a> sollen die im Unterricht erworbenen ASP.NET Grundlagen angewendet und vertieft werden.
 
 
-
 		<h2>Aufgabe 1</h2>
 		<p>Der BMI-Rechner könnte in einer vereinfachten Variante wie folgt aussehen:</p>
 		<img src="images/bmi.png" style="width: 100%; max-width:700px">
-
 
 		<p>Gehen Sie bei Ihrer Implementation wie folgt vor:</p>
 		<ol style="list-style: decimal">
 			<li>Erstellen Sie ein neues ASP.NET Projekt.</li>
 			<li style="list-style: none">
 				<ul>
-					<li>Nutzen Sie das „Web Applikation Template“ (ohne Security).</li>
+					<li>Nutzen Sie das „Web Applikation MVC“ (ohne Authentication).</li>
 					<li>Testen Sie jeden Schritt indem Sie Ihr Projekt im Browser ausführen.</li>
 				</ul>
 			</li>
+			<li>Löschen Sie unnötigen Code im _Layout.cshtml.</li>
 			<li>Erstellen Sie innerhalb der Index-Seite das HTML sowie den Razor-Code für den Rechner.</li>
 			<li>Erstellen Sie eine Action, welche den BMI anhand des Gewichtiges und der Höhe berechnen kann.</li>
 			<li style="list-style: none">
 				<ul>
 					<li>Geben Sie den BMI als Content() zurück.</li>
 					<li>Definieren Sie eine Klasse um diese Daten zu speichern.</li>
-					<li>Bei fehlerhaften Eingaben soll "Fehlerhafte Daten“ ausgegeben werden.</li>
+					<li>Bei fehlerhaften Eingaben soll "Fehlerhafte Daten“ ausgegeben werden. z.B. Gewicht über 500kg oder kleiner 30cm</li>
 					<li>Rufen Sie diese Action von der Rechner-Form auf.</li>
 				</ul>
 			</li>

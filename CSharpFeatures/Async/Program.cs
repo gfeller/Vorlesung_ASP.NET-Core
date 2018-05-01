@@ -25,10 +25,10 @@ namespace Async
             return true;
         }
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("-----------");
-            RunAsync();
+            await RunAsync();
             Console.WriteLine("-----------");
             Console.ReadLine();
         }
