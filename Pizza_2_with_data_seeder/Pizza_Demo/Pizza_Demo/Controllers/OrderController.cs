@@ -1,7 +1,9 @@
-﻿using System.Linq;
-using Demo.Models;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Pizza_Demo.Data;
+using Pizza_Demo.Models;
+using Pizza_Demo.Utilities;
 
 namespace Pizza_Demo.Controllers
 {
@@ -21,22 +23,34 @@ namespace Pizza_Demo.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Create(Order newOrder)
+        public IActionResult Create(NewOrderViewModel newOrder)
         {
-            _context.Order.Add(newOrder);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var order = new Order() {Name = newOrder.Name, Date = DateTime.Now, CustomerId = User.GetId()}; //or _userManager.GetUserId(User);
+            _context.Order.Add(order);
             _context.SaveChanges();
             TempData["Text"] = "Danke für Ihre Bestellung";
-            //return RedirectToAction("Detail", new {Id = newOrder.Id});
-            return PartialView("Detail", newOrder);
+            return PartialView("Detail", order);
         }
 
         public IActionResult Detail(long id)
         {
             var order = _context.Order.FirstOrDefault(x => x.Id == id);
+
             if (order == null)
             {
                 return NotFound();
-            }            
+            }
+
+            if (!User.IsAdmin() && order.CustomerId != User.GetId())
+            {
+                return Forbid();
+            }
+
             TempData["Text"] = TempData["Text"] ?? "Ihre Bestellung";
             return View("Detail", order);
         }
@@ -48,12 +62,19 @@ namespace Pizza_Demo.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.IsAdmin() && order.CustomerId != User.GetId())
+            {
+                return Forbid();
+            }
+
             if (order.State == OrderState.New)
             {
                 order.State = OrderState.Deleted;
                 _context.SaveChanges();
                 return RedirectToAction("Detail", new {Id = id});
             }
+
             return BadRequest();
         }
     }
