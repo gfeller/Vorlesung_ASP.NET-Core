@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pizza_Demo.Data;
 using Pizza_Demo.Models;
@@ -7,6 +8,7 @@ using Pizza_Demo.Utilities;
 
 namespace Pizza_Demo.Controllers
 {
+	[Authorize]
     public class OrderController : Controller
     {
         private readonly ApplicationDbContext _context;
