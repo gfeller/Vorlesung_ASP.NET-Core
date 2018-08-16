@@ -12,6 +12,7 @@ namespace Pizza_Demo.Services
     {
         private readonly IServiceProvider _provider;
 
+
         public DataService(IServiceProvider provider)
         {
             _provider = provider;
@@ -19,20 +20,23 @@ namespace Pizza_Demo.Services
 
         public async void EnsureData(string adminPwd)
         {
-            using (var serviceScope = _provider.GetService<IServiceScopeFactory>().CreateScope())
+
+
+            using (var serviceScope = _provider.GetService<IServiceScopeFactory>()
+                .CreateScope())
             {
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<IdentityUser>>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
                 var role = await roleManager.FindByNameAsync("Administrator");
                 if (role == null)
                 {
-                    role = new IdentityRole() {Name = "Administrator"};
+                    role = new IdentityRole() { Name = "Administrator" };
                     await roleManager.CreateAsync(role);
                 }
                 if (await userManager.FindByNameAsync("admin@admin.ch") == null)
                 {
-                    var user = new ApplicationUser() {UserName = "admin@admin.ch"};
+                    var user = new IdentityUser() { UserName = "admin@admin.ch" };
                     await userManager.CreateAsync(user, adminPwd);
                     await userManager.AddToRoleAsync(user, "Administrator");
                 }

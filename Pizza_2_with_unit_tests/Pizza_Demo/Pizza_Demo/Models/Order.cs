@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Pizza_Demo.Models
 {
@@ -23,7 +24,7 @@ namespace Pizza_Demo.Models
         public DateTime Date { get; set; }
         public OrderState State { get; set; }
 
-        public virtual ApplicationUser Customer { get; set; }
+        public virtual IdentityUser Customer { get; set; }
         [Required]
         public string CustomerId { get; set; }
 

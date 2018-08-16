@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Demo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Pizza_Demo.Data;
+using Pizza_Demo.Models;
 
 namespace Pizza_Demo.Controllers
 {

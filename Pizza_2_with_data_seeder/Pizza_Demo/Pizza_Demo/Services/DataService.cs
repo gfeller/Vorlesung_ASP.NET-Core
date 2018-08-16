@@ -25,7 +25,7 @@ namespace Pizza_Demo.Services
             using (var serviceScope = _provider.GetService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<IdentityUser>>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
                 var role = await roleManager.FindByNameAsync("Administrator");
@@ -36,7 +36,7 @@ namespace Pizza_Demo.Services
                 }
                 if (await userManager.FindByNameAsync("admin@admin.ch") == null)
                 {
-                    var user = new ApplicationUser() { UserName = "admin@admin.ch" };
+                    var user = new IdentityUser() { UserName = "admin@admin.ch" };
                     await userManager.CreateAsync(user, adminPwd);
                     await userManager.AddToRoleAsync(user, "Administrator");
                 }

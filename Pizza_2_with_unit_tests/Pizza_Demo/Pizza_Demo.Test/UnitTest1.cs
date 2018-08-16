@@ -43,7 +43,7 @@ namespace Pizza_Demo.Test
         [Fact]
         public void CreateSimple()
         {
-            OrderController controller = new OrderController(null, null);
+            OrderController controller = new OrderController(null);
             Assert.NotNull(controller.Create());
         }
 
@@ -51,7 +51,7 @@ namespace Pizza_Demo.Test
         public void CreateFailing()
         {
             var model = new NewOrderViewModel();
-            var controller = new OrderController(null, null);
+            var controller = new OrderController(null);
             ValidateModel(model, controller);
 
 
@@ -65,7 +65,7 @@ namespace Pizza_Demo.Test
         {
             var model = new NewOrderViewModel() { Name = "Michael" };
 
-            var controller = new OrderController(_dbContext, null);
+            var controller = new OrderController(_dbContext);
             var context = new DefaultHttpContext { User = CreateUser(), RequestServices = _serviceProvider };
             controller.ControllerContext = new ControllerContext() { HttpContext = context };
 
@@ -110,18 +110,18 @@ namespace Pizza_Demo.Test
     /// <summary>
     /// UserManager Fake
     /// </summary>
-    public class FakeUserManager : UserManager<ApplicationUser>
+    public class FakeUserManager : UserManager<IdentityUser>
     {
         public FakeUserManager()
-            : base(new Mock<IUserStore<ApplicationUser>>().Object,
+            : base(new Mock<IUserStore<IdentityUser>>().Object,
                 new Mock<IOptions<IdentityOptions>>().Object,
-                new Mock<IPasswordHasher<ApplicationUser>>().Object,
-                new IUserValidator<ApplicationUser>[0],
-                new IPasswordValidator<ApplicationUser>[0],
+                new Mock<IPasswordHasher<IdentityUser>>().Object,
+                new IUserValidator<IdentityUser>[0],
+                new IPasswordValidator<IdentityUser>[0],
                 new Mock<ILookupNormalizer>().Object,
                 new Mock<IdentityErrorDescriber>().Object,
                 new Mock<IServiceProvider>().Object,
-                new Mock<ILogger<UserManager<ApplicationUser>>>().Object)
+                new Mock<ILogger<UserManager<IdentityUser>>>().Object)
         {
 
         }
